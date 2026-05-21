@@ -9,91 +9,96 @@ import Navigation from '../components/Navigation.astro';
 >
   <Navigation />
 
-  <section class="hero-stage">
-    <div class="glow-bg-orb"></div>
-    <div class="content-wrapper">
-      <div class="institution-badge">
-        <span class="pulse-dot"></span> DEPARTMENT OF BIOCHEMISTRY, S.P. COLLEGE
-      </div>
-      <h1 class="hero-title">
-        MOLECULAR <span class="text-gradient">VIROLOGY</span> LAB
-      </h1>
-      <p class="hero-subtitle">Decoding Virus Pathogenesis</p>
-      <p class="hero-desc">Investigating HIV-1 molecular biology and genetic evolution with advanced structural modeling.</p>
-      <div class="hero-actions">
-        <a href="#quest" class="btn-primary">EXPLORE THE QUEST</a>
-        <a href="mailto:muzafarjan@gmail.com" class="btn-secondary">GET IN TOUCH</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="matrix-section">
-    <div class="matrix-grid max-width-wrapper">
-      <div class="matrix-card">
-        <h3>TARGET</h3>
-        <p class="matrix-stat">HIV-1</p>
-        <p class="matrix-label">Primary Research Focus</p>
-      </div>
-      <div class="matrix-card">
-        <h3>COMPLEX</h3>
-        <p class="matrix-stat text-emerald">gp120</p>
-        <p class="matrix-label">Glycan Structural Mapping</p>
-      </div>
-      <div class="matrix-card">
-        <h3>PLATFORM</h3>
-        <p class="matrix-stat text-blue">3D</p>
-        <p class="matrix-label">Interactive Vector Analytics</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="viewer-section max-width-wrapper">
-    <div class="section-label">INTERACTIVE VECTOR MATRIX</div>
-    <h2 class="section-heading">HIV-1 gp120: CD4 Complex</h2>
+  <div class="main-content-wrapper">
     
-    <div class="glass-viewer-frame">
-      <div id="mol-canvas" class="canvas-container"></div>
-      
-      <div class="viewer-controls">
-        <button class="control-btn active" data-style="cartoon">Cartoon</button>
-        <button class="control-btn" data-style="surface">Surface</button>
-        <button class="control-btn" data-style="spacefill">Spacefill</button>
-        <div class="control-divider"></div>
-        <button class="control-btn highlight" data-highlight="cd4">CD4 Binding Loop</button>
-        <button class="control-btn highlight" data-highlight="phe43">Phe43 Pocket</button>
-        <button class="control-btn highlight" data-highlight="v3">V3 Loop</button>
-      </div>
-      
-      <div class="viewer-instruction">
-        <span>🖱️ Drag to rotate • Scroll to zoom</span>
-      </div>
-    </div>
-  </section>
-
-  <section id="quest" class="mission-section max-width-wrapper">
-    <div class="grid-2col">
-      <div class="mission-text-block">
-        <span class="section-label">OUR MISSION</span>
-        <h2 class="section-heading">The Molecular Quest</h2>
-        <p>At the heart of the MJ's Lab lies a deep curiosity about viruses. Led by <strong>Dr. Muzafar Jan</strong>, our team is dedicated to pushing the boundaries of scientific understanding, primarily focused on studying HIV-1.</p>
-        <p style="margin-top: 16px;">Our research focuses on the intersection of molecular biology and virological techniques to explore HIV's glycan structures, genetic variability, and host interactions.</p>
-      </div>
-      <div class="quote-container">
-        <div class="quote-card">
-          <span class="quote-mark">“</span>
-          <blockquote>Where molecules meet meaning.</blockquote>
+    <section class="hero-stage">
+      <div class="glow-bg-orb"></div>
+      <div class="content-wrapper">
+        <div class="institution-badge">
+          <span class="pulse-dot"></span> DEPARTMENT OF BIOCHEMISTRY, S.P. COLLEGE
+        </div>
+        <h1 class="hero-title">
+          MOLECULAR <span class="text-gradient">VIROLOGY</span> LAB
+        </h1>
+        <p class="hero-subtitle">Decoding Virus Pathogenesis</p>
+        <p class="hero-desc">Investigating HIV-1 molecular biology and genetic evolution with advanced structural modeling.</p>
+        <div class="hero-actions">
+          <a href="#quest" class="btn-primary">EXPLORE THE QUEST</a>
+          <a href="mailto:muzafarjan@gmail.com" class="btn-secondary">GET IN TOUCH</a>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <footer class="cinematic-footer">
-    <div class="max-width-wrapper footer-content">
-      <p>© 2026 Molecular Virology Lab. Department of Biochemistry, Sri Pratap (SP) College Srinagar.</p>
-      <p class="credits">Created by <a href="https://bhatmohsin.netlify.app" target="_blank">Bhat Mohsin</a></p>
-    </div>
-  </footer>
+    <section class="matrix-section">
+      <div class="matrix-grid max-width-wrapper">
+        <div class="matrix-card">
+          <h3>TARGET</h3>
+          <p class="matrix-stat">HIV-1</p>
+          <p class="matrix-label">Primary Research Focus</p>
+        </div>
+        <div class="matrix-card">
+          <h3>COMPLEX</h3>
+          <p class="matrix-stat text-emerald">gp120</p>
+          <p class="matrix-label">Glycan Structural Mapping</p>
+        </div>
+        <div class="matrix-card">
+          <h3>PLATFORM</h3>
+          <p class="matrix-stat text-blue">3D</p>
+          <p class="matrix-label">Interactive Vector Analytics</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="viewer-section max-width-wrapper">
+      <div class="section-label">INTERACTIVE VECTOR MATRIX</div>
+      <h2 class="section-heading">HIV-1 gp120: CD4 Complex</h2>
+      
+      <div class="glass-viewer-frame">
+        <div id="mol-canvas" class="canvas-container" data-pdb="1GC1"></div>
+        
+        <div class="viewer-controls">
+          <button class="control-btn active" data-style="cartoon">Cartoon</button>
+          <button class="control-btn" data-style="surface">Surface</button>
+          <button class="control-btn" data-style="spacefill">Spacefill</button>
+          <div class="control-divider"></div>
+          <button class="control-btn highlight" data-highlight="cd4">CD4 Binding Loop</button>
+          <button class="control-btn highlight" data-highlight="phe43">Phe43 Pocket</button>
+          <button class="control-btn highlight" data-highlight="v3">V3 Loop</button>
+        </div>
+        
+        <div class="viewer-instruction">
+          <span>🖱️ Drag to rotate • Scroll to zoom</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="quest" class="mission-section max-width-wrapper">
+      <div class="grid-2col">
+        <div class="mission-text-block">
+          <span class="section-label">OUR MISSION</span>
+          <h2 class="section-heading">The Molecular Quest</h2>
+          <p>At the heart of the MJ's Lab lies a deep curiosity about viruses. Led by <strong>Dr. Muzafar Jan</strong>, our team is dedicated to pushing the boundaries of scientific understanding, primarily focused on studying HIV-1.</p>
+          <p style="margin-top: 16px;">Our research focuses on the intersection of molecular biology and virological techniques to explore HIV's glycan structures, genetic variability, and host interactions.</p>
+        </div>
+        <div class="quote-container">
+          <div class="quote-card">
+            <span class="quote-mark">“</span>
+            <blockquote>Where molecules meet meaning.</blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="cinematic-footer">
+      <div class="max-width-wrapper footer-content">
+        <p>© 2026 Molecular Virology Lab. Department of Biochemistry, Sri Pratap (SP) College Srinagar.</p>
+        <p class="credits">Created by <a href="https://bhatmohsin.netlify.app" target="_blank">Bhat Mohsin</a></p>
+      </div>
+    </footer>
+  </div>
 </MainLayout>
+
+<script is:inline src="https://3Dmol.org/build/3Dmol-min.js"></script>
 
 <style>
   :root {
@@ -104,11 +109,11 @@ import Navigation from '../components/Navigation.astro';
     --neon-emerald: #34d399;
   }
 
-  body {
-    background-color: var(--bg-dark);
-    color: #f3f4f6;
-    font-family: system-ui, -apple-system, sans-serif;
-    overflow-x: hidden;
+  /* Pushes content down so the fixed header doesn't overlap text layout */
+  .main-content-wrapper {
+    padding-top: 80px; 
+    position: relative;
+    z-index: 1;
   }
 
   .max-width-wrapper {
@@ -119,7 +124,7 @@ import Navigation from '../components/Navigation.astro';
 
   .hero-stage {
     position: relative;
-    padding: 160px 24px 100px;
+    padding: 100px 24px 80px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -275,7 +280,6 @@ import Navigation from '../components/Navigation.astro';
   .matrix-stat {
     font-size: 2.5rem;
     font-weight: 800;
-    color: white;
     line-height: 1;
     margin-bottom: 8px;
   }
@@ -431,7 +435,6 @@ import Navigation from '../components/Navigation.astro';
   .quote-card blockquote {
     font-size: 1.5rem;
     font-style: italic;
-    color: #e5e7eb;
     line-height: 1.4;
     font-weight: 300;
   }
