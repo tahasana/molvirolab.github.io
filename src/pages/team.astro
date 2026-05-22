@@ -1,6 +1,21 @@
 ---
+import { getCollection } from 'astro:content';
 import MainLayout from '../layouts/MainLayout.astro';
 import Navigation from '../components/Navigation.astro';
+
+// 1. Fetch and sort all team text files dynamically
+const allMembers = await getCollection('team');
+const activeMembers = allMembers
+  .filter(member => !member.data.isPast)
+  .sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+
+// 2. Pre-render the biography text for each member safely
+const renderedMembers = await Promise.all(
+  activeMembers.map(async (member) => {
+    const { Content } = await member.render();
+    return { data: member.data, Content };
+  })
+);
 ---
 
 <MainLayout 
@@ -16,91 +31,21 @@ import Navigation from '../components/Navigation.astro';
       <p class="subtitle">The minds parsing complex viral data matrices, structural phenotypes, and molecular topography.</p>
     </header>
 
-    <section class="pi-section max-width-wrapper">
-      <div class="pi-card">
-        <div class="pi-glow"></div>
-        <div class="pi-meta">
-          <span class="pi-tag">PRINCIPAL INVESTIGATOR</span>
-          <h2>Dr. Muzafar Jan</h2>
-          <p class="pi-title">Head of Molecular Virology Laboratory</p>
-          <p class="pi-bio">Coordinating the intersection of clinical virology protocols and multi-dimensional computational structural informatics. Dr. Jan leads the lab's exploration into HIV-1 glycan topography, mutational resistance mapping, and novel host-cell binding profiles within the Department of Biochemistry.</p>
-          <div class="pi-contact-row">
-            <span>✉️ muzafarjan@gmail.com</span>
-            <span>📍 S.P. College Srinagar</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="members-section max-width-wrapper">
       <div class="section-label-mid">ACTIVE RESEARCH COHORT</div>
       
       <div class="members-grid">
-        
-        <div class="member-card">
-          <div class="member-badge">BIOINFORMATICS</div>
-          <h3>Mir Tuha Sana</h3>
-          <p class="member-role">Research Scholar</p>
-          <p class="member-desc">Specializes in managing high-throughput viral genomic data streams and parsing structural alignments.</p>
-          <div class="member-email">✉️ Mirtuha9682@gmail.com</div>
-        </div>
-
-        <div class="member-card panel-emerald">
-          <div class="member-badge badge-emerald">STRUCTURAL ANALYTICS</div>
-          <h3>Shahid Showkat</h3>
-          <p class="member-role">Research Scholar</p>
-          <p class="member-desc">Focuses on generating 3D macromolecular docking grids and evaluating spatial binding configurations.</p>
-          <div class="member-email">✉️ Shayan287472@gmail.com</div>
-        </div>
-
-        <div class="member-card panel-purple">
-          <div class="member-badge badge-purple">MOLECULAR ASSAYS</div>
-          <h3>Urooba Sadiq</h3>
-          <p class="member-role">Graduate Trainee</p>
-          <p class="member-desc">Assisting with sample preparation pipelines, target amplification controls, and assay documentation.</p>
-          <div class="member-email">✉️ Uroobasadiq194@gmail.com</div>
-        </div>
-
-        <div class="member-card panel-purple">
-          <div class="member-badge badge-purple">VIROLOGY DYNAMICS</div>
-          <h3>Tooba Jan</h3>
-          <p class="member-role">Dissertation Scholar</p>
-          <p class="member-desc">Investigating viral replication trajectories and tracking mutational variances within isolates.</p>
-          <div class="member-email">✉️ toobajan8082@gmail.com</div>
-        </div>
-
-        <div class="member-card">
-          <div class="member-badge">DATA SYSTEMS</div>
-          <h3>Umaid Mir</h3>
-          <p class="member-role">Research Trainee</p>
-          <p class="member-desc">Managing computational platform environments and archiving high-density sequence strings.</p>
-          <div class="member-email">✉️ umaidmir635@gmail.com</div>
-        </div>
-
-        <div class="member-card panel-emerald">
-          <div class="member-badge badge-emerald">BIOCHEMISTRY</div>
-          <h3>Mohsin Anjum</h3>
-          <p class="member-role">Technical Officer</p>
-          <p class="member-desc">Overseeing laboratory chemical matrices, calibration safety grids, and processing frameworks.</p>
-          <div class="member-email">✉️ Mosin09@yahoo.com</div>
-        </div>
-
-        <div class="member-card panel-purple">
-          <div class="member-badge badge-purple">GLYCAN MAPPING</div>
-          <h3>Mehak Maqbool</h3>
-          <p class="member-role">Dissertation Scholar</p>
-          <p class="member-desc">Studying structural variations inside surface envelope glycoproteins and carbohydrate shield models.</p>
-          <div class="member-email">✉️ mehakmaqbool99@gmail.com</div>
-        </div>
-
-        <div class="member-card">
-          <div class="member-badge">PHYLOGENETICS</div>
-          <h3>Tehniyat Farooq</h3>
-          <p class="member-role">Research Scholar</p>
-          <p class="member-desc">Tracing evolutionary maps of pathogenic strains using computational branch vector scoring tools.</p>
-          <div class="member-email">✉️ tehniyatrather@gmail.com</div>
-        </div>
-
+        {renderedMembers.map(({ data, Content }) => (
+          <div class="member-card">
+            <div class="member-badge">{data.role.split(' ')[0]}</div>
+            <h3>{data.name}</h3>
+            <p class="member-role">{data.role}</p>
+            <div class="member-desc">
+              <Content />
+            </div>
+            {data.email && <div class="member-email">✉️ {data.email}</div>}
+          </div>
+        ))}
       </div>
     </section>
   </div>
@@ -112,8 +57,6 @@ import Navigation from '../components/Navigation.astro';
     --card-glass: rgba(15, 23, 42, 0.4);
     --border-glass: rgba(255, 255, 255, 0.06);
     --neon-blue: #38bdf8;
-    --neon-emerald: #34d399;
-    --neon-purple: #a855f7;
     --text-muted: #9ca3af;
   }
 
@@ -166,73 +109,8 @@ import Navigation from '../components/Navigation.astro';
     font-weight: 300;
   }
 
-  .pi-section {
-    padding-bottom: 60px;
-  }
-
-  .pi-card {
-    position: relative;
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(3, 7, 18, 0.8) 100%);
-    border: 1px solid rgba(56, 189, 248, 0.15);
-    border-radius: 16px;
-    padding: 48px;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-  }
-
-  .pi-glow {
-    position: absolute;
-    top: -20%;
-    left: -10%;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, rgba(0,0,0,0) 70%);
-    pointer-events: none;
-  }
-
-  .pi-tag {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    color: var(--neon-blue);
-    display: block;
-    margin-bottom: 12px;
-  }
-
-  .pi-meta h2 {
-    font-size: 2.25rem;
-    font-weight: 800;
-    color: #fff;
-    margin: 0 0 6px 0;
-    letter-spacing: -0.01em;
-  }
-
-  .pi-title {
-    font-size: 1.1rem;
-    color: #e5e7eb;
-    margin: 0 0 24px 0;
-    font-weight: 500;
-  }
-
-  .pi-bio {
-    color: var(--text-muted);
-    font-size: 1.1rem;
-    line-height: 1.7;
-    max-width: 900px;
-    margin-bottom: 32px;
-  }
-
-  .pi-contact-row {
-    display: flex;
-    gap: 32px;
-    font-size: 0.9rem;
-    color: #64748b;
-    font-family: monospace;
-  }
-
   .members-section {
     padding: 40px 24px 120px;
-    border-top: 1px solid var(--border-glass);
   }
 
   .section-label-mid {
@@ -260,9 +138,10 @@ import Navigation from '../components/Navigation.astro';
     transition: transform 0.3s ease, border-color 0.3s ease;
   }
 
-  .member-card:hover { transform: translateY(-4px); border-color: rgba(56, 189, 248, 0.25); }
-  .member-card.panel-emerald:hover { border-color: rgba(52, 211, 153, 0.25); }
-  .member-card.panel-purple:hover { border-color: rgba(168, 85, 247, 0.25); }
+  .member-card:hover { 
+    transform: translateY(-4px); 
+    border-color: rgba(56, 189, 248, 0.25); 
+  }
 
   .member-badge {
     font-size: 0.65rem;
@@ -274,9 +153,8 @@ import Navigation from '../components/Navigation.astro';
     border-radius: 4px;
     align-self: flex-start;
     margin-bottom: 20px;
+    text-transform: uppercase;
   }
-  .member-badge.badge-emerald { color: var(--neon-emerald); background: rgba(52, 211, 153, 0.06); }
-  .member-badge.badge-purple { color: var(--neon-purple); background: rgba(168, 85, 247, 0.06); }
 
   .member-card h3 {
     font-size: 1.25rem;
@@ -305,6 +183,7 @@ import Navigation from '../components/Navigation.astro';
     font-family: monospace;
     color: #4b5563;
   }
+
   .member-card:hover .member-email {
     color: #94a3b8;
   }
@@ -314,7 +193,5 @@ import Navigation from '../components/Navigation.astro';
   }
   @media (max-width: 768px) {
     .members-grid { grid-template-columns: 1fr; }
-    .pi-card { padding: 32px; }
-    .pi-contact-row { flex-direction: column; gap: 8px; }
   }
 </style>
